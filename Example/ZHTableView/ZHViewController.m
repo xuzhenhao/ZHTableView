@@ -7,8 +7,12 @@
 //
 
 #import "ZHViewController.h"
+#import "UITableView+ZHTableView.h"
+#import "UIResponder+ZHRouter.h"
 
-@interface ZHViewController ()
+@interface ZHViewController ()<UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITextField *txtField;
 
 @end
 
@@ -17,13 +21,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    [self configTableView];
+}
+- (void)configTableView{
+    [self.tableView zh_createDataSource];
+    ZHTableViewSection *section = [ZHTableViewSection new];
+    NSArray *items = @[
+                       [ZHTableViewItem itemWithData:@"bannerModel" reuserId:@"bannerCell" height:60],
+                       [ZHTableViewItem itemWithData:@"a tableView demo" reuserId:@"userNameCell" height:60],
+                       ];
+    [section addItems:items];
+    [self.tableView zh_addSection:section];
+    [self.tableView reloadData];
+}
+- (void)routerEventWithName:(NSString *)eventName userInfo:(NSDictionary *)userInfo{
+    NSLog(@"事件名:%@ 值:%@",eventName,userInfo);
+}
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ZHTableViewItem *item = [self.tableView zh_itemAtIndexPath:indexPath];
+    return item.height;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 @end
