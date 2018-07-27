@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'ZHTableView_Example' do
+  pod 'ZHTableView', :path => '../'
+
+  target 'ZHTableView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
