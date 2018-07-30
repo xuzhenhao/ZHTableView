@@ -10,6 +10,9 @@
 #import "ZHTableViewCellProtocol.h"
 #import "UIResponder+ZHRouter.h"
 
+NSString *userNameBeginEdit = @"userNameBeginEdit";
+NSString *userNameDidChanged = @"userNameDidChanged";
+
 @interface UserNameCell()<ZHTableViewCellProtocol>
 
 @property (weak, nonatomic) IBOutlet UITextField *txtField;
@@ -23,11 +26,11 @@
     // Initialization code
 }
 - (IBAction)editingDidBegin:(UITextField *)sender {
-    [self routerEventWithName:@"editBegin" userInfo:nil];
+    [self routerEventWithName:userNameBeginEdit userInfo:nil];
 }
 
 - (IBAction)editingDidChanged:(UITextField *)sender {
-    [self routerEventWithName:@"editChanged" userInfo:@{@"value":sender.text}];
+    [self routerEventWithName:userNameDidChanged userInfo:@{@"value":sender.text}];
 }
 
 

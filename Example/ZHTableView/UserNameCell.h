@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *userNameBeginEdit;
+extern NSString *userNameDidChanged;
+
 @interface UserNameCell : UITableViewCell
 
 @end
